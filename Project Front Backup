@@ -1,0 +1,82 @@
+import tkinter as tk
+from tkinter import ttk
+from PIL import Image, ImageTk
+import sqlite3
+from tkinter import messagebox
+
+def win():
+    login_window = tk.Toplevel()
+    login_window.title('Login Page')
+    login_window.attributes('-fullscreen', True)
+    width1 = int(login_window.winfo_screenwidth())
+    height1 = int(login_window.winfo_screenheight())
+    width_image = int(width1 / 2 + 400)
+
+    image_path_login = "C:/Users/adity/OneDrive/Documents/Project Assets/OIG.Vl3HA.jpeg"
+    image_login = Image.open(image_path_login)
+    image_login = image_login.resize((width_image, height1), Image.LANCZOS)
+    photo_login = ImageTk.PhotoImage(image_login)
+
+    canvas_login = tk.Canvas(login_window, width=width1 / 2 + 400, height=height1, background='black')
+    canvas_login.pack(side='left')
+    # Create a Label to display the image
+    image_label_login = ttk.Label(canvas_login, image=photo_login)
+    image_label_login.photo = photo_login  # Important to keep a reference
+    image_label_login.pack()
+
+    frame_login = ttk.Frame(login_window, width=width1 - width1 / 2 + 400, height=height1)
+    frame_login.pack(side='left', expand=True, fill='both')
+
+    label1_login = ttk.Label(frame_login, text='Login Page', font=("Arial", 16))
+    label1_login.pack(side='top', pady=200)
+
+    username_label_login = ttk.Label(frame_login, text="Username:")
+    username_label_login.pack(pady=5)
+    username_entry_login = tk.Entry(frame_login, bg="white")
+    username_entry_login.pack()
+
+    password_label_login = ttk.Label(frame_login, text="Password:")
+    password_label_login.pack(pady=10)
+    password_entry_login = tk.Entry(frame_login, show="*")  # Hide the password characters
+    password_entry_login.pack()
+
+    sign_in_button_login = tk.Button(frame_login, text="Sign In", width=10, height=1)
+    sign_in_button_login.pack(pady=5)
+
+    sign_up_button_login = tk.Button(frame_login, text="Sign Up", width=10, height=1)
+    sign_up_button_login.pack()
+
+    login_window.mainloop()
+
+openingscreen = tk.Tk()
+openingscreen.title('Stock Market Prediction AI')
+openingscreen.attributes('-fullscreen', True)
+
+# Create a canvas that fills the entire window
+openingcanvas = tk.Canvas(openingscreen, background='grey', width=openingscreen.winfo_screenwidth(),
+                          height=openingscreen.winfo_screenheight())
+openingcanvas.pack(fill='both', expand=True)
+
+image_path_opening = "C:/Users/adity/OneDrive/Documents/Project Assets/landscape and add 2 textboxes (1).png"
+image_opening = Image.open(image_path_opening)
+screen_width = openingscreen.winfo_screenwidth()
+screen_height = openingscreen.winfo_screenheight()
+image_opening = image_opening.resize((screen_width, screen_height), Image.LANCZOS)
+photo_opening = ImageTk.PhotoImage(image_opening)
+
+# Create a canvas with full-screen dimensions
+openingcanvas.pack()
+openingcanvas.photo = photo_opening
+openingcanvas.create_image(0, 0, anchor=tk.NW, image=photo_opening)
+
+# Create a label within the canvas to display the image
+label_opening = ttk.Label(openingcanvas)
+label_opening.config(image=photo_opening)  # Set the image option using the config method
+label_opening.photo = photo_opening  # Important to keep a reference
+label_opening.pack(fill='both', expand=True)
+
+# Bind the Escape key to close the window
+openingscreen.bind('<Escape>', lambda event: openingscreen.destroy())
+openingscreen.after(1000, win)
+
+openingscreen.mainloop()
